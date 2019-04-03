@@ -3,7 +3,7 @@
 
 // Contains all public header files within the this tool.
 
-#include "../../src/error/error.hpp"
-#include "../../src/error/context_error.hpp"
+#include "../src/error/error.hpp"
+#include "../src/error/context_error.hpp"
 
 #endif
