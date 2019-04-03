@@ -79,7 +79,8 @@ clean:
 	@rm -f $(shell find . -path "*.o")
 	@rm -f $(EXAMPLES) $(TESTS)
 	@rm -f $(DEPENDENCIES)
-	@rm -f $(BIN_DIR)/*
+	@rm -rf $(BUILD_DIR)
+	@rm -rf $(BIN_DIR)
 
 # Other stuff ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 
