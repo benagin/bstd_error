@@ -13,8 +13,8 @@ This is a header only library.
 
 ##### Available build targets
 1. Build everything: ```make``` or ```make all```
-3. Build examples: ```make examples```
-4. Build tests: ```make tests```
+2. Build examples: ```make examples```
+3. Build tests: ```make tests```
 
 ### Include public headers
 
