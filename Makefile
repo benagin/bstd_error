@@ -2,10 +2,9 @@
 
 debug ?= 0
 
-# Component names ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# Component/target names ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 
 EXAMPLES ?= examples
-TESTS    ?= tests
 
 # Directory Layout ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 
@@ -13,7 +12,6 @@ $(shell mkdir -p bin)
 BIN_DIR ?= ./bin
 
 EXAMPLES_SRC_DIR  ?= ./examples
-TESTS_SRC_DIR  ?= ./test
 
 $(shell mkdir -p build/dependencies)
 BUILD_DIR      ?= ./build
@@ -37,9 +35,7 @@ DEPS = -MMD -MF $(D_FILES)
 # File Configuration ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 
 EXAMPLES_SRCS := $(shell find $(EXAMPLES_SRC_DIR) -path "*.cpp")
-EXAMPLES     := $(basename $(EXAMPLES_SRCS))
-TESTS_SRCS    := $(shell find $(TESTS_SRC_DIR) -path "*.cpp")
-TESTS        := $(basename $(TESTS_SRCS))
+EXAMPLES      := $(basename $(EXAMPLES_SRCS))
 
 # Object File Recipes ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 
@@ -52,19 +48,11 @@ TESTS        := $(basename $(TESTS_SRCS))
 
 # Executable Recipes ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 
-all:	$(EXAMPLES) $(TESTS)
+all:	$(EXAMPLES)
 
 # Build all examples.
 .PHONY: $(EXAMPLES)
 $(EXAMPLES):	%: %.cpp
-		@echo Compiling $<...
-		@$(CXX) $(CXXFLAGS) $(DEPS) $(INC) $< -o $@
-		@cat $(D_FILES) >> $(DEPENDENCIES)
-
-# TODO: fix not being able to run test executable from different directories.
-# Build all tests.
-.PHONY: $(TESTS)
-$(TESTS):	%: %.cpp $(TEST_LIB) $(JSON_LIB)
 		@echo Compiling $<...
 		@$(CXX) $(CXXFLAGS) $(DEPS) $(INC) $< -o $@
 		@cat $(D_FILES) >> $(DEPENDENCIES)
@@ -77,7 +65,7 @@ clean:
 	@echo Cleaning...
 	@rm -f $(shell find $(DEPENDENCY_DIR) -path "*.d")
 	@rm -f $(shell find . -path "*.o")
-	@rm -f $(EXAMPLES) $(TESTS)
+	@rm -f $(EXAMPLES)
 	@rm -f $(DEPENDENCIES)
 	@rm -rf $(BUILD_DIR)
 	@rm -rf $(BIN_DIR)

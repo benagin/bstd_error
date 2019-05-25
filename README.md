@@ -14,7 +14,6 @@ This is a header only library.
 ##### Available build targets
 1. Build everything: ```make``` or ```make all```
 2. Build examples: ```make examples```
-3. Build tests: ```make tests```
 
 ### Include public headers
 
