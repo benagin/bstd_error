@@ -26,3 +26,7 @@ Alternatively, include ```bstd_error/include```. In gcc or equivalent:
 
 Then use (depending on which headers you need):
 * ```#include <bstd_error.hpp>```
+
+## Documentation
+
+See https://benagin.github.io/bstd_error for documentation.
