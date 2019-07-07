@@ -16,7 +16,7 @@ class error : public std::runtime_error {
     /// \param _where some information on where the error occured
     /// \param _what what is the error
     explicit error(const std::string& _where, const std::string& _what)
-      : std::runtime_error("\n  Where: " + _where + ".\n  What: " \
+      : std::runtime_error("\nbstd::error\n  Where: " + _where + ".\n  What: " \
           + _what + ".\n") {}
 
 };
