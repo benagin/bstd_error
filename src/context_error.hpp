@@ -30,12 +30,10 @@ class context_error : public error {
     /// \param _context context that contains the error
     /// \param _csit    iterator to the bad character
     /// \param _what    what went wrong
-    /// TODO: figure out a way to do this without modifying _context.
-    explicit context_error(std::string& _context, const CSIT& _csit,
+    explicit context_error(const std::string& _context, const CSIT& _csit,
         const std::string& _what)
         : error("character '" + std::string(1, *_csit) + "' in context '" +
           mark_char(_csit, _context, this) + "'", _what) {}
-
 
     /// \brief Report error for a string in a context.
     /// Currently, this has a side effect of modifying the _context
@@ -43,17 +41,18 @@ class context_error : public error {
     ///
     /// \param _context the larger expression that contains the bad character
     /// \param _start   iterator to the start of the bad string
-    /// \param _last    iterator to last character of the bad string
+    /// \param _last    iterator to the character after the last character of
+    ///                 the bad string
     /// \param _what    what went wrong
-    explicit context_error(std::string& _context, const CSIT& _start,
+    explicit context_error(const std::string& _context, const CSIT& _start,
         const CSIT& _last, const std::string& _what)
-        : error(std::string(_start, _last) + "' in context '" +
+        : error("string '" + std::string(_start, _last) + "' in context '" +
           mark_string(_start, _last, _context, this) + "'", _what) {}
 
   private:
 
-    /// \brief Marks a character in a string with angle brackets (<, >).
-    /// Example: 'This string has a bad<d> character.'
+    /// \brief Marks a character in a string with angle brackets (>, <).
+    /// Example: 'context > t < is misspelled'.
     /// Only return ample context for the character.
     ///
     /// This causes undefined behavior if _csit is not valid (does not point to
@@ -63,8 +62,8 @@ class context_error : public error {
     /// \param _context the context containing the character
     /// \param _ce      an object so this friend class works (unused)
     friend const std::string mark_char(const CSIT& _csit,
-        std::string& _context, const context_error* _ce) {
-      return mark_string(_csit, _csit, _context, _ce);
+        const std::string& _context, const context_error* _ce) {
+      return mark_string(_csit, _csit + 1, _context, _ce);
     }
 
     /// \brief Same as mark_char, but marks a string.
@@ -77,16 +76,17 @@ class context_error : public error {
     /// \param _context the context that contains the string
     /// \param _ce      an object so this friend class works (unused).
     friend const std::string mark_string(const CSIT& _start, const CSIT& _last,
-        std::string& _context, const context_error* _ce){
-      const auto& start = _context.cbegin() +
+        const std::string& _context, const context_error* _ce){
+      auto context_copy = _context;
+      const auto& start = context_copy.cbegin() +
                           std::distance(_context.cbegin(), _start),
-                  end = _context.cbegin() +
+                  end = context_copy.cbegin() +
                         std::distance(_context.cbegin(), _last);
 
-      _context.insert(start, {' ', '{'});
-      _context.insert(end + 3, {'}', ' '});
+      context_copy.insert(start, {' ', '>', ' '});
+      context_copy.insert(end + 3, {' ', '<', ' '});
 
-      return trim(_context, _ce);
+      return trim(context_copy, _ce);
     }
 
     /// \brief Trim context to keep it under MAX_CONTEXT_SIZE.
@@ -97,7 +97,7 @@ class context_error : public error {
         const context_error* _ce) {
       // If the context of an error is larger than this we wil trim it to keep
       // output cleaner.
-      constexpr size_t MAX_CONTEXT_SIZE = 30;
+      constexpr size_t MAX_CONTEXT_SIZE = 50;
 
       // The max amount of characters we will trim from the end of the context
       // before trimming from the beginning.
