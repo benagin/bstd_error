@@ -30,10 +30,12 @@ class context_error : public error {
     /// \param _context context that contains the error
     /// \param _csit    iterator to the bad character
     /// \param _what    what went wrong
+    /// \param _max_context_size The maximum size of the context string before
+    ///                          we trim it
     explicit context_error(const std::string& _context, const CSIT& _csit,
-        const std::string& _what)
+        const std::string& _what, const std::size_t _max_context_size = 50)
         : error("character '" + std::string(1, *_csit) + "' in context '" +
-          mark_char(_csit, _context, this) + "'", _what) {}
+          mark_char(_csit, _context, this, _max_context_size) + "'", _what) {}
 
     /// \brief Report error for a string in a context.
     /// Currently, this has a side effect of modifying the _context
@@ -44,10 +46,14 @@ class context_error : public error {
     /// \param _last    iterator to the character after the last character of
     ///                 the bad string
     /// \param _what    what went wrong
+    /// \param _max_context_size The maximum size of the context string before
+    ///                          we trim it
     explicit context_error(const std::string& _context, const CSIT& _start,
-        const CSIT& _last, const std::string& _what)
+        const CSIT& _last, const std::string& _what,
+        const std::size_t _max_context_size = 50)
         : error("string '" + std::string(_start, _last) + "' in context '" +
-          mark_string(_start, _last, _context, this) + "'", _what) {}
+          mark_string(_start, _last, _context, this, _max_context_size) + "'",
+          _what) {}
 
   private:
 
@@ -60,10 +66,13 @@ class context_error : public error {
     ///
     /// \param _csit    the character to mark
     /// \param _context the context containing the character
+    /// \param _max_context_size The maximum size of the context string before
+    ///                          we trim it
     /// \param _ce      an object so this friend class works (unused)
     friend const std::string mark_char(const CSIT& _csit,
-        const std::string& _context, const context_error* _ce) {
-      return mark_string(_csit, _csit + 1, _context, _ce);
+        const std::string& _context, const context_error* _ce,
+        const std::size_t _max_context_size = 50) {
+      return mark_string(_csit, _csit + 1, _context, _ce, _max_context_size);
     }
 
     /// \brief Same as mark_char, but marks a string.
@@ -74,9 +83,12 @@ class context_error : public error {
     /// \param _start   iterator to the start of the string
     /// \param _last    iterator to the last character of the string
     /// \param _context the context that contains the string
+    /// \param _max_context_size The maximum size of the context string before
+    ///                          we trim it
     /// \param _ce      an object so this friend class works (unused).
     friend const std::string mark_string(const CSIT& _start, const CSIT& _last,
-        const std::string& _context, const context_error* _ce){
+        const std::string& _context, const context_error* _ce,
+        const std::size_t _max_context_size = 50) {
       auto context_copy = _context;
       const auto& start = context_copy.cbegin() +
                           std::distance(_context.cbegin(), _start),
@@ -86,35 +98,29 @@ class context_error : public error {
       context_copy.insert(start, {' ', '>', ' '});
       context_copy.insert(end + 3, {' ', '<', ' '});
 
-      return trim(context_copy, _ce);
+      return trim(context_copy, _ce, _max_context_size);
     }
 
-    /// \brief Trim context to keep it under MAX_CONTEXT_SIZE.
+    /// \brief Trim context to keep it under _max_context_size.
     ///
     /// \param _context the context string
+    /// \param _max_context_size The maximum size of the context string before
+    ///                          we trim it
     /// \param _ce      an object so this friend class works (unused)
-    friend std::string trim(std::string _context,
-        const context_error* _ce) {
-      // If the context of an error is larger than this we wil trim it to keep
-      // output cleaner.
-      constexpr size_t MAX_CONTEXT_SIZE = 50;
-
-      // The max amount of characters we will trim from the end of the context
-      // before trimming from the beginning.
-      constexpr size_t MAX_TRIM_SIZE = 10;
-
+    friend const std::string trim(const std::string& _context,
+        const context_error* _ce, const std::size_t _max_context_size = 50) {
       const auto size = _context.size();
-      if(size < MAX_CONTEXT_SIZE)
+      if(size < _max_context_size)
         return _context;
 
-      const auto& size_to_trim = std::ceil((size - MAX_CONTEXT_SIZE) / 2);
+      const auto& size_to_trim = std::ceil((size - _max_context_size) / 2);
 
       const std::string ellipsis = "...";
 
       std::string trimmed = "";
 
       // Trim from front and back.
-      if(size_to_trim > MAX_TRIM_SIZE) {
+      if(size_to_trim > (_max_context_size / 2)) {
         trimmed = _context.substr(size_to_trim, size - (size_to_trim * 2));
         trimmed = ellipsis + trimmed + ellipsis;
       } else {
