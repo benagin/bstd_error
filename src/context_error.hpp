@@ -119,15 +119,8 @@ class context_error : public error {
 
       std::string trimmed = "";
 
-      // Trim from front and back.
-      if(size_to_trim > (_max_context_size / 2)) {
-        trimmed = _context.substr(size_to_trim, size - (size_to_trim * 2));
-        trimmed = ellipsis + trimmed + ellipsis;
-      } else {
-        // Trim from the back only.
-        trimmed = _context.substr(0, size - (size_to_trim * 2));
-        trimmed = trimmed + ellipsis;
-      }
+      trimmed = _context.substr(size_to_trim, size - size_to_trim);
+      trimmed = ellipsis + trimmed + ellipsis;
 
       return trimmed;
     }
