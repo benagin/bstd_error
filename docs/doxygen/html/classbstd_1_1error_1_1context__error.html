@@ -115,6 +115,9 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
+<tr class="memitem:af4847b15e760de9afe657c391cd1ea8e"><td class="memItemLeft" align="right" valign="top">const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbstd_1_1error_1_1context__error.html#af4847b15e760de9afe657c391cd1ea8e">safe_construct_string</a> (const <a class="el" href="classbstd_1_1error_1_1context__error.html#a31563051a29fe851aa0a7fe5e5c74242">CSIT</a> &amp;_start, const <a class="el" href="classbstd_1_1error_1_1context__error.html#a31563051a29fe851aa0a7fe5e5c74242">CSIT</a> &amp;_last, const <a class="el" href="classbstd_1_1error_1_1context__error.html">context_error</a> *_ce)</td></tr>
+<tr class="memdesc:af4847b15e760de9afe657c391cd1ea8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Safely construct a std::string with bidirectional iterators. Without this the normal std::string constructor will throw std::length_error if _start &gt; _last since std::string's constructor takes InputIterators.  <a href="#af4847b15e760de9afe657c391cd1ea8e">More...</a><br /></td></tr>
+<tr class="separator:af4847b15e760de9afe657c391cd1ea8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f8b6152dc7c8779f8d1b0a9c85d3c6f"><td class="memItemLeft" align="right" valign="top">const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbstd_1_1error_1_1context__error.html#a6f8b6152dc7c8779f8d1b0a9c85d3c6f">mark_char</a> (const <a class="el" href="classbstd_1_1error_1_1context__error.html#a31563051a29fe851aa0a7fe5e5c74242">CSIT</a> &amp;_csit, const std::string &amp;_context, const <a class="el" href="classbstd_1_1error_1_1context__error.html">context_error</a> *_ce, const std::size_t _max_context_size=50)</td></tr>
 <tr class="memdesc:a6f8b6152dc7c8779f8d1b0a9c85d3c6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marks a character in a string with angle brackets (&gt;, &lt;). Example: 'context &gt; t &lt; is misspelled'. Only return ample context for the character.  <a href="#a6f8b6152dc7c8779f8d1b0a9c85d3c6f">More...</a><br /></td></tr>
 <tr class="separator:a6f8b6152dc7c8779f8d1b0a9c85d3c6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -378,7 +381,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="context__error_8hpp_source.html#l00072">72</a> of file <a class="el" href="context__error_8hpp_source.html">context_error.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="context__error_8hpp_source.html#l00097">97</a> of file <a class="el" href="context__error_8hpp_source.html">context_error.hpp</a>.</p>
 
 </div>
 </div>
@@ -447,7 +450,61 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="context__error_8hpp_source.html#l00089">89</a> of file <a class="el" href="context__error_8hpp_source.html">context_error.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="context__error_8hpp_source.html#l00114">114</a> of file <a class="el" href="context__error_8hpp_source.html">context_error.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af4847b15e760de9afe657c391cd1ea8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4847b15e760de9afe657c391cd1ea8e">&#9670;&nbsp;</a></span>safe_construct_string</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string safe_construct_string </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classbstd_1_1error_1_1context__error.html#a31563051a29fe851aa0a7fe5e5c74242">CSIT</a> &amp;&#160;</td>
+          <td class="paramname"><em>_start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classbstd_1_1error_1_1context__error.html#a31563051a29fe851aa0a7fe5e5c74242">CSIT</a> &amp;&#160;</td>
+          <td class="paramname"><em>_last</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classbstd_1_1error_1_1context__error.html">context_error</a> *&#160;</td>
+          <td class="paramname"><em>_ce</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Safely construct a std::string with bidirectional iterators. Without this the normal std::string constructor will throw std::length_error if _start &gt; _last since std::string's constructor takes InputIterators. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">_start</td><td>iterator to the start of the string </td></tr>
+    <tr><td class="paramname">_last</td><td>iterator to the last character of the string </td></tr>
+    <tr><td class="paramname">_ce</td><td>an object so this friend class works (unused). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="context__error_8hpp_source.html#l00068">68</a> of file <a class="el" href="context__error_8hpp_source.html">context_error.hpp</a>.</p>
 
 </div>
 </div>
@@ -501,7 +558,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="context__error_8hpp_source.html#l00110">110</a> of file <a class="el" href="context__error_8hpp_source.html">context_error.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="context__error_8hpp_source.html#l00135">135</a> of file <a class="el" href="context__error_8hpp_source.html">context_error.hpp</a>.</p>
 
 </div>
 </div>
