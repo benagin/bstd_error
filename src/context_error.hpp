@@ -51,11 +51,36 @@ class context_error : public error {
     explicit context_error(const std::string& _context, const CSIT& _start,
         const CSIT& _last, const std::string& _what,
         const std::size_t _max_context_size = 50)
-        : error("string '" + std::string(_start, _last) + "' in context '" +
+        : error("string '" + safe_construct_string(_start, _last, this)
+          + "' in context '" +
           mark_string(_start, _last, _context, this, _max_context_size) + "'",
           _what) {}
 
   private:
+
+    /// \brief Safely construct a std::string with bidirectional iterators.
+    /// Without this the normal std::string constructor will throw
+    /// std::length_error if _start > _last since std::string's constructor
+    /// takes InputIterators.
+    /// \param _start   iterator to the start of the string
+    /// \param _last    iterator to the last character of the string
+    /// \param _ce      an object so this friend class works (unused).
+    friend const std::string safe_construct_string(const CSIT& _start,
+        const CSIT& _last, const context_error* _ce) {
+
+      auto last_copy = _last;
+
+      if(_start <= _last)
+        return std::string(_start, _last);
+
+      std::string constructed = "";
+      while(last_copy != _start) {
+        constructed += *last_copy;
+        last_copy++;
+      }
+
+      return constructed;
+    }
 
     /// \brief Marks a character in a string with angle brackets (>, <).
     /// Example: 'context > t < is misspelled'.
