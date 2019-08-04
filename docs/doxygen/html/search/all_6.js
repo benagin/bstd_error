@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['trim',['trim',['../classbstd_1_1error_1_1context__error.html#af6f70d5be5367d384bb41b59556364ab',1,'bstd::error::context_error']]]
+  ['trim',['trim',['../classbstd_1_1error_1_1context__error.html#afc61d407122aec9579581da05a5a151a',1,'bstd::error::context_error']]]
 ];
