@@ -57,7 +57,7 @@ int main() {
     const auto csit = example_error.cbegin() + 54;
 
     throw bstd::error::context_error(example_error, csit, "Misspelling");
-  } catch(const bstd::error::error& _e) {
+  } catch(const bstd::error::context_error& _e) {
     std::cout << _e.what() << std::endl;
   }
 }
