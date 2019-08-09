@@ -8,7 +8,7 @@ int main() {
   // Runtime error with some information on where the error occured.
   try {
     throw bstd::error::error("error_example1.cpp, main()", "Example error");
-  } catch(bstd::error::error _e) {
+  } catch(const bstd::error::error& _e) {
     std::cout << _e.what() << std::endl;
   }
 
@@ -19,7 +19,7 @@ int main() {
     const auto csit = example_error.cbegin() + 6;
 
     throw bstd::error::context_error(example_error, csit, "Misspelling");
-  } catch(bstd::error::error _e) {
+  } catch(const bstd::error::error& _e) {
     std::cout << _e.what() << std::endl;
   }
 
@@ -32,7 +32,7 @@ int main() {
     const auto csit2 = example_error.cbegin() + 7;
 
     throw bstd::error::context_error(example_error, csit1, csit2, "Misspelling");
-  } catch(bstd::error::error _e) {
+  } catch(const bstd::error::error& _e) {
     std::cout << _e.what() << std::endl;
   }
 
@@ -46,7 +46,7 @@ int main() {
     const auto csit = example_error.cbegin() + 19;
 
     throw bstd::error::context_error(example_error, csit, "Misspelling");
-  } catch(bstd::error::error _e) {
+  } catch(const bstd::error::error& _e) {
     std::cout << _e.what() << std::endl;
   }
 
@@ -57,7 +57,7 @@ int main() {
     const auto csit = example_error.cbegin() + 54;
 
     throw bstd::error::context_error(example_error, csit, "Misspelling");
-  } catch(bstd::error::error _e) {
+  } catch(const bstd::error::error& _e) {
     std::cout << _e.what() << std::endl;
   }
 }
