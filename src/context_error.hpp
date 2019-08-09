@@ -34,8 +34,8 @@ class context_error : public error {
     ///                          we trim it
     /// \param context_error     an object so this friend class works (unused)
     /// \return a trimmed string
-    friend const auto trim(const std::string& _context,
-        const context_error*, const std::size_t _max_context_size = 50) {
+    const auto trim(const std::string& _context,
+        const std::size_t _max_context_size = 50) {
       const auto size = _context.size();
       if(size < _max_context_size)
         return _context;
@@ -62,9 +62,8 @@ class context_error : public error {
     ///                          we trim it
     /// \param context_erorr     an object so this friend class works (unused).
     /// \return a string with a marked substring
-    friend const auto mark_string(const CSIT& _start, const CSIT& _last,
-        const std::string& _context, const context_error* _ce,
-        const std::size_t _max_context_size = 50) {
+    const auto mark_string(const CSIT& _start, const CSIT& _last,
+        const std::string& _context, const std::size_t _max_context_size = 50) {
       if(_context.empty())
         return std::string();
 
@@ -80,7 +79,7 @@ class context_error : public error {
       if(std::distance(_start, _last) >= _max_context_size)
         return context_copy;
 
-      return trim(context_copy, _ce, _max_context_size);
+      return trim(context_copy, _max_context_size);
     }
 
     /// \brief Marks a character in a string with angle brackets (>, <).
@@ -92,12 +91,10 @@ class context_error : public error {
     /// \param _context          the context containing the character
     /// \param _max_context_size the maximum size of the context string before
     ///                          we trim it
-    /// \param _ce               an object so this friend class works (unused)
     /// \return                  a string with a marked character
-    friend const auto mark_char(const CSIT& _csit,
-        const std::string& _context, const context_error* _ce,
+    const auto mark_char(const CSIT& _csit, const std::string& _context,
         const std::size_t _max_context_size = 50) {
-      return mark_string(_csit, _csit + 1, _context, _ce, _max_context_size);
+      return mark_string(_csit, _csit + 1, _context, _max_context_size);
     }
 
     /// \brief Safely construct a std::string with bidirectional iterators.
@@ -109,8 +106,8 @@ class context_error : public error {
     /// \param _last         iterator to the last character of the string
     /// \param context_error an object so this friend class works (unused).
     /// \return a string constructed from the value pointed to by (_start, _last]
-    friend const auto safe_construct_string(const std::string& _context,
-        const CSIT& _start, const CSIT& _last, const context_error*) noexcept {
+    const auto safe_construct_string(const std::string& _context,
+        const CSIT& _start, const CSIT& _last) noexcept {
       if(_context.empty() or _last == std::cend(_context)
           or _start == std::cend(_context))
         return std::string();
@@ -134,12 +131,11 @@ class context_error : public error {
     /// \brief Safely construct a std::string from an iterator.
     /// \param _context container string for _start
     /// \param _start iterator to the character
-    /// \param _ce    an object so this friend class works (unused).
     /// \param context_error an object so this friend class works (unused).
     /// \return a string constructed from the value pointed to by _start
-    friend const auto safe_construct_string(const std::string& _context,
-        const CSIT& _start, const context_error* _ce) noexcept {
-      return safe_construct_string(_context, _start, _start, _ce);
+    const auto safe_construct_string(const std::string& _context,
+        const CSIT& _start) noexcept {
+      return safe_construct_string(_context, _start, _start);
     }
 
   public:
@@ -154,9 +150,9 @@ class context_error : public error {
     ///                          we trim it
     explicit context_error(const std::string& _context, const CSIT& _csit,
         const std::string& _what, const std::size_t _max_context_size = 50)
-        : error("character '" + safe_construct_string(_context, _csit, this)
+        : error("character '" + safe_construct_string(_context, _csit)
           + "' in context '" +
-          mark_char(_csit, _context, this, _max_context_size) + "'", _what) {}
+          mark_char(_csit, _context, _max_context_size) + "'", _what) {}
 
     /// \brief Report error for a string in a context.
     /// Currently, this has a side effect of modifying the _context
@@ -171,9 +167,9 @@ class context_error : public error {
     explicit context_error(const std::string& _context, const CSIT& _start,
         const CSIT& _last, const std::string& _what,
         const std::size_t _max_context_size = 50)
-        : error("string '" + safe_construct_string(_context, _start, _last, this)
+        : error("string '" + safe_construct_string(_context, _start, _last)
           + "' in context '" +
-          mark_string(_start, _last, _context, this, _max_context_size) + "'",
+          mark_string(_start, _last, _context, _max_context_size) + "'",
           _what) {}
 
 };
