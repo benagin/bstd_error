@@ -69,6 +69,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="classbstd_1_1error_1_1error-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">bstd::error::error Class Reference</div>  </div>
@@ -91,17 +92,64 @@ Inheritance diagram for bstd::error::error:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a16abe8634e9b9f078bcb2f17a371d2f0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbstd_1_1error_1_1error.html#a16abe8634e9b9f078bcb2f17a371d2f0">error</a> (const std::string &amp;_what)</td></tr>
+<tr class="memdesc:a16abe8634e9b9f078bcb2f17a371d2f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Explicit constructor that mirrors base class.  <a href="#a16abe8634e9b9f078bcb2f17a371d2f0">More...</a><br /></td></tr>
+<tr class="separator:a16abe8634e9b9f078bcb2f17a371d2f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a81ff1835735e1cf96a9efdf13d28da36"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbstd_1_1error_1_1error.html#a81ff1835735e1cf96a9efdf13d28da36">error</a> (const std::string &amp;_where, const std::string &amp;_what)</td></tr>
 <tr class="memdesc:a81ff1835735e1cf96a9efdf13d28da36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Explicit constructor that helps contextualize the error by adding the location from which the error occured.  <a href="#a81ff1835735e1cf96a9efdf13d28da36">More...</a><br /></td></tr>
 <tr class="separator:a81ff1835735e1cf96a9efdf13d28da36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73b0aa906532758cf2ab88f71302445c"><td class="memItemLeft" align="right" valign="top">virtual const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbstd_1_1error_1_1error.html#a73b0aa906532758cf2ab88f71302445c">what</a> () const noexcept override</td></tr>
+<tr class="separator:a73b0aa906532758cf2ab88f71302445c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a4a07310b50556f0db5a22df10dbe0c22"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbstd_1_1error_1_1error.html#a4a07310b50556f0db5a22df10dbe0c22">error</a> (const std::string &amp;_where, const std::string &amp;_what, const std::string &amp;_name)</td></tr>
+<tr class="memdesc:a4a07310b50556f0db5a22df10dbe0c22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Explicit constructor that helps contextualize the error by adding the location from which the error occured.  <a href="#a4a07310b50556f0db5a22df10dbe0c22">More...</a><br /></td></tr>
+<tr class="separator:a4a07310b50556f0db5a22df10dbe0c22"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Base class to help us throw effective errors. </p>
 
-<p class="definition">Definition at line <a class="el" href="error_8hpp_source.html#l00010">10</a> of file <a class="el" href="error_8hpp_source.html">error.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="error_8hpp_source.html#l00011">11</a> of file <a class="el" href="error_8hpp_source.html">error.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a16abe8634e9b9f078bcb2f17a371d2f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16abe8634e9b9f078bcb2f17a371d2f0">&#9670;&nbsp;</a></span>error() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bstd::error::error::error </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>_what</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Explicit constructor that mirrors base class. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">_what</td><td>what is the error </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="error_8hpp_source.html#l00017">17</a> of file <a class="el" href="error_8hpp_source.html">error.hpp</a>.</p>
+
+</div>
+</div>
 <a id="a81ff1835735e1cf96a9efdf13d28da36"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a81ff1835735e1cf96a9efdf13d28da36">&#9670;&nbsp;</a></span>error()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a81ff1835735e1cf96a9efdf13d28da36">&#9670;&nbsp;</a></span>error() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -143,7 +191,89 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="error_8hpp_source.html#l00018">18</a> of file <a class="el" href="error_8hpp_source.html">error.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="error_8hpp_source.html#l00024">24</a> of file <a class="el" href="error_8hpp_source.html">error.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a4a07310b50556f0db5a22df10dbe0c22"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a07310b50556f0db5a22df10dbe0c22">&#9670;&nbsp;</a></span>error() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bstd::error::error::error </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>_where</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>_what</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>_name</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Explicit constructor that helps contextualize the error by adding the location from which the error occured. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">_where</td><td>some information on where the error occured </td></tr>
+    <tr><td class="paramname">_what</td><td>what is the error </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="error_8hpp_source.html#l00039">39</a> of file <a class="el" href="error_8hpp_source.html">error.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a73b0aa906532758cf2ab88f71302445c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73b0aa906532758cf2ab88f71302445c">&#9670;&nbsp;</a></span>what()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual const char* bstd::error::error::what </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>\breif Return a contextualized error message. </p><dl class="section return"><dt>Returns</dt><dd>formatted error message </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="error_8hpp_source.html#l00029">29</a> of file <a class="el" href="error_8hpp_source.html">error.hpp</a>.</p>
 
 </div>
 </div>
