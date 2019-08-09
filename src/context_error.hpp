@@ -16,9 +16,17 @@ class context_error : public error {
   public:
 
     /// Shorthand for string const iterator.
-    typedef std::string::const_iterator CSIT;
+    using CSIT = typename std::string::const_iterator;
+
+  protected:
+
+    /// \brief Get the classes name.
+    /// \return the classes name
+    virtual const std::string& get_name() const noexcept override;
 
   private:
+
+    static inline const std::string m_name{"bstd::context_error"};
 
     /// \brief Trim context to keep it under _max_context_size.
     /// \param _context          the context string
@@ -69,6 +77,9 @@ class context_error : public error {
       context_copy.insert(start, {' ', '>', ' '});
       context_copy.insert(end + 3, {' ', '<', ' '});
 
+      if(std::distance(_start, _last) >= _max_context_size)
+        return context_copy;
+
       return trim(context_copy, _ce, _max_context_size);
     }
 
@@ -106,7 +117,9 @@ class context_error : public error {
 
       auto last_copy = _last;
 
-      if(_start <= _last)
+      if(_start == _last)
+        return std::string(_start, _last + 1);
+      else if(_start < _last)
         return std::string(_start, _last);
 
       auto constructed = std::string();
@@ -130,10 +143,6 @@ class context_error : public error {
     }
 
   public:
-
-    /// \brief Explicit constructor that follows the same pattern as error.
-    explicit context_error(const std::string& _where, const std::string& _what)
-        : error(_where, _what) {}
 
     /// \brief Report error for a character in a context.
     /// Currently, this has a side effect of modifying the _context
@@ -168,6 +177,14 @@ class context_error : public error {
           _what) {}
 
 };
+
+
+const std::string&
+context_error::
+get_name() const noexcept {
+  return m_name;
+}
+
 
 }
 
