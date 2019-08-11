@@ -26,7 +26,7 @@ class error : public std::runtime_error {
 
     /// \breif Return a contextualized error message.
     /// \return formatted error message
-    virtual const char* what() const noexcept override {
+    inline virtual const char* what() const noexcept override {
       return m_where.data();
     }
 
