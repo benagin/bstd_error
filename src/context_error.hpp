@@ -61,12 +61,13 @@ class context_error : public error {
 
       auto context_copy = _context;
       const auto& start = context_copy.cbegin() +
-        std::distance(_context.cbegin(), _start),
-        end = context_copy.cbegin() +
-          std::distance(_context.cbegin(), _last);
+          std::distance(_context.cbegin(), _start);
 
       context_copy.insert(start, {' ', '>', ' '});
-      context_copy.insert(end + 3, {' ', '<', ' '});
+
+      const auto& end = context_copy.cbegin() +
+          std::distance(_context.cbegin(), _last) + 3;
+      context_copy.insert(end, {' ', '<', ' '});
 
       if(std::distance(_start, _last) >= _max_context_size)
         return context_copy;
@@ -119,8 +120,6 @@ class context_error : public error {
       }
 
       return constructed;
-
-
     }
 
     /// \brief Safely construct a std::string from an iterator.
